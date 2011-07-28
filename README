@@ -1,0 +1,45 @@
+Module operations:
+ install
+ uninstall
+ validate(entity)
+ get_views(entity)
+
+
+Machine
+ id (rlsf)
+ machine.height
+
+Host
+ host.hostname
+ machine.hosts
+
+Cabinet
+ cabinet.name
+ cabinet.size
+ cabinet.location
+ machine.cabinet_id
+ machine.cabinet_slot
+
+PDU
+ pdu.num_outlets
+ pdu.cabinet_id
+ pdu_outlet.pdu_id
+ pdu_outlet.machine_id
+
+Zabbix
+
+JIRA
+
+Network
+
+Warranty
+ machine.warranty_ends
+
+Hardware
+ machine.memory
+ machine.cpu
+
+Disk
+ disk.capacity
+ disk.model
+ disk.machine_id
