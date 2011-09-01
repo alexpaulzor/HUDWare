@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>HUDWare - Cabinets</title>
+    </head>
+    <body>
+        <% cabinets.each do |cabinet| %>
+            <%= erb :"cabinet/cabinet", {}, MODULES["cabinet"].get_view("cabinet", cabinet) %>
+        <% end %>
+    </body>
+</html>
+
+                

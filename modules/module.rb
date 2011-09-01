@@ -17,6 +17,10 @@ class HUDWareModule
   end
 
   def name
-    return "hudware"
+    raise "Name not implemented"
+  end
+
+  def get_view(viewname, entity)
+    erb :"#{self.name}/#{viewname}"
   end
 end

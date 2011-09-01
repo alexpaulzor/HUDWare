@@ -3,11 +3,14 @@ require 'rubygems'
 require 'mongo'
 require 'modules/module'
 require 'config'
-MODULES = []
+require 'sinatra'
+
+MODULES = {}
 MODULE_NAMES.each do |mod_name|
     require 'modules/' + mod_name + '/module'
 end
 
-MODULES.each do |mod|
-    puts mod.name
+get '/v/:module/:view' do
+    erb :"#{params[:module]}/#{params[:view]}", {}, MODULES[params[:module]].get_view(params[:view])
 end
+

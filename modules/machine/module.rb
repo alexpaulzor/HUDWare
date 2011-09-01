@@ -7,4 +7,5 @@ class MachineModule < HUDWareModule
 
 end
 
-MODULES << MachineModule.new
+mod = MachineModule.new
+MODULES[mod.name] = mod
