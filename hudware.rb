@@ -7,7 +7,7 @@ require 'sinatra'
 
 MODULES = {}
 MODULE_NAMES.each do |mod_name|
-    require 'modules/' + mod_name + '/module'
+    require 'modules/' + mod_name
 end
 
 get '/v/:module/:view' do

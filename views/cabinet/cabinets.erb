@@ -3,8 +3,24 @@
         <title>HUDWare - Cabinets</title>
     </head>
     <body>
-        <% cabinets.each do |cabinet| %>
-            <%= erb :"cabinet/cabinet", {}, MODULES["cabinet"].get_view("cabinet", cabinet) %>
+        <% cabinets.each do |cabid, cabinet| %>
+            <table>
+                <thead>
+                    <tr><th colspan=2><%= cabinet["name"] %></th></tr>
+                </thead>
+                <tbody>
+                    <% 1.upto(cabinet["height"].to_i) do |slot| %>
+                        <tr>
+                            <td><%= slot %></td>
+                            <td>
+                                <% if slots[cabinet["_id"]][slot] %>
+                                    <%= erb :"machine/label", {}, {:machine => slots[cabinet["_id"]][slot]} %> 
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
         <% end %>
     </body>
 </html>
