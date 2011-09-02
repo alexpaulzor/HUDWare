@@ -14,7 +14,6 @@ class CabinetModule < HUDWareModule
                     cabinet["height"] = "45"
                 end
                 cabinets[cabinet["_id"]] = cabinet
-                puts cabinet.inspect
             end
             machines = DB["machine"].find("cabinet" => {"$exists" => true})
             machines.each do |machine|

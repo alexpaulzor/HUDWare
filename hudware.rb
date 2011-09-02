@@ -23,6 +23,11 @@ post '/update/:module/:id' do
     erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], params[:id])
 end
 
+get '/create/:module' do
+    entity = MODULES[params[:module]].create(params)
+    erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], entity)
+end
+
 post '/create/:module' do
     entity = MODULES[params[:module]].create(params)
     erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], entity)
