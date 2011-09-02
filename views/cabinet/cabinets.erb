@@ -1,28 +1,34 @@
-<html>
-    <head>
-        <title>HUDWare - Cabinets</title>
-    </head>
-    <body>
-        <% cabinets.each do |cabid, cabinet| %>
-            <table>
-                <thead>
-                    <tr><th colspan=2><%= cabinet["name"] %></th></tr>
-                </thead>
-                <tbody>
-                    <% 1.upto(cabinet["height"].to_i) do |slot| %>
-                        <tr>
-                            <td><%= slot %></td>
-                            <td>
-                                <% if slots[cabinet["_id"]][slot] %>
-                                    <%= erb :"machine/label", {}, {:machine => slots[cabinet["_id"]][slot]} %> 
+<% cabinets.each do |cabid, cabinet| %>
+    <div class=cabinet style="float: left">
+        <table>
+            <thead>
+                <tr><th colspan=2><a href="/v/cabinet/edit/<%= cabinet["_id"] %>"><%= cabinet["name"] %></a></th></tr>
+            </thead>
+            <tbody>
+                <% skip = 0 %>
+                <% 1.upto(cabinet["height"].to_i) do |slot| %>
+                    <tr>
+                        <td><%= slot %></td>
+                        <% if skip > 0 %> 
+                            <% skip = skip - 1 %>
+                        <% else %>
+                            <% if slots[cabinet["_id"]] and slots[cabinet["_id"]][slot] %>
+                                <% size = slots[cabinet["_id"]][slot]["size"] %>
+                                <% if not size %>
+                                    <% size = 1 %>
                                 <% end %>
-                            </td>
-                        </tr>
-                    <% end %>
-                </tbody>
-            </table>
-        <% end %>
-    </body>
-</html>
-
-                
+                                <% skip = size - 1 %>
+                                <td rowspan="<%= size %>">
+                                    <%= erb :"machine/physical", {}, {:machine => slots[cabinet["_id"]][slot]} %>
+                                </td>
+                            <% else %>
+                                <td><a href="/v/machine/create">+</a></td>
+                            <% end %>
+                        <% end %>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+<% end %>
+<a href="/v/cabinet/create">+</a>

@@ -4,6 +4,19 @@ class MachineModule < HUDWareModule
         return "machine"
     end
 
+    def get_view(viewname, entity)
+        if viewname == "physical"
+
+        elsif viewname == "details"
+
+        end
+        return {:machine => entity}
+    end
+
+    def update(entity, params)
+
+    end
+
 
 end
 
