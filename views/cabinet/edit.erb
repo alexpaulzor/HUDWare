@@ -1,0 +1,16 @@
+<form action="/update/cabinet/<%= cabinet["_id"] %>" method=post>
+  <input type=hidden name=nextview value=cabinets />
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td><input type=text name=name value="<%= cabinet["name"] %>" /></td>
+    </tr>
+    <tr>
+      <td>Height:</td>
+      <td><input type=text name=height value="<%= cabinet["height"] %>" /></td>
+    </tr>
+    <tr>
+      <td colspan=2><input type=submit value=Save /></td>
+    </tr>
+  </table>
+</form>
