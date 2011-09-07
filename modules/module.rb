@@ -24,12 +24,15 @@ class HUDWareModule
 
   # returns a hash of local variables to be passed to erb.
   # entity may be an object or just an id.
-  def get_view(viewname, entity)
+  def get_view(viewname, params = nil)
     raise "get_view not implemented"
   end
 
-  # entity may be an object or just an id. (or nil)
-  def update(entity, params)
+  def update(params)
     raise "update not implemented"
+  end
+
+  def create(params)
+    raise "create not implemented"
   end
 end

@@ -3,7 +3,7 @@ class CabinetModule < HUDWareModule
         return "cabinet"
     end
 
-    def get_view(viewname, entity = nil)
+    def get_view(viewname, params = nil)
         if viewname == "cabinets"
             # slots: {cabinet_id => {slotnum => machine}}
             slots = {}
@@ -13,32 +13,25 @@ class CabinetModule < HUDWareModule
                 if cabinet["height"].nil?
                     cabinet["height"] = "45"
                 end
-                cabinets[cabinet["_id"]] = cabinet
+                cabinets[cabinet["_id"].to_s] = cabinet
             end
             machines = DB["machine"].find("cabinet" => {"$exists" => true})
             machines.each do |machine|
                 if not slots.has_key?(machine["cabinet"])
                     slots[machine["cabinet"]] = {}
                 end
-                slots[machine["cabinet"]][machine["slot"]] = machine
+                slots[machine["cabinet"]][machine["slot"].to_i] = machine
             end
             return {:cabinets => cabinets, :slots => slots}
         elsif viewname == "edit"
-            if entity["_id"]
-                return {:cabinet => entity}
-            else
-                cabinet = DB["cabinet"].find("_id" => BSON::ObjectId(entity)).first
-                return {:cabinet => cabinet}
-            end
+            cabinet = DB["cabinet"].find("_id" => BSON::ObjectId(params[:id])).first
+            return {:cabinet => cabinet}
         end
     end
 
-    def update(entity, params)
-        id = entity["_id"]
-        if not id
-            id = BSON::ObjectId(entity)
-            entity = DB["cabinet"].find("_id" => id).first
-        end
+    def update(params)
+        id = params[:id]
+        entity = DB["cabinet"].find("_id" => BSON::ObjectId(id)).first
         entity["name"] = params[:name]
         entity["height"] = params[:height]
 
@@ -49,7 +42,7 @@ class CabinetModule < HUDWareModule
         entity = {}
         entity["name"] = params[:name]
         entity["height"] = params[:height]
-        return DB["cabinet"].insert(entity)
+        return DB["cabinet"].insert(entity).to_s
     end
 end
 

@@ -11,25 +11,25 @@ MODULE_NAMES.each do |mod_name|
 end
 
 get '/v/:module/:view/:id' do
-    erb :"#{params[:module]}/#{params[:view]}", {}, MODULES[params[:module]].get_view(params[:view], params[:id])
+    erb :"#{params[:module]}/#{params[:view]}", {}, MODULES[params[:module]].get_view(params[:view], params)
 end
 
 get '/v/:module/:view' do
-    erb :"#{params[:module]}/#{params[:view]}", {}, MODULES[params[:module]].get_view(params[:view])
+    erb :"#{params[:module]}/#{params[:view]}", {}, MODULES[params[:module]].get_view(params[:view], params)
 end
 
 post '/update/:module/:id' do
     MODULES[params[:module]].update(params[:id], params)
-    erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], params[:id])
+    erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], params)
 end
 
 get '/create/:module' do
-    entity = MODULES[params[:module]].create(params)
-    erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], entity)
+    params[:id] = MODULES[params[:module]].create(params)
+    erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], params)
 end
 
 post '/create/:module' do
-    entity = MODULES[params[:module]].create(params)
-    erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], entity)
+    params[:id] = MODULES[params[:module]].create(params)
+    erb :"#{params[:module]}/#{params[:nextview]}", {}, MODULES[params[:module]].get_view(params[:nextview], params)
 end
 

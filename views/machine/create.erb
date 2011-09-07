@@ -1,11 +1,12 @@
 <form action="/create/machine" method=post>
+  <input type=hidden name=nextview value=details />
   <table>
     <tr>
       <td>Cabinet</td>
       <td>
         <select name="machine[cabinet]">
           <% cabinets.each do |cabid, cabinet| %>
-            <option value="<%= cabinet["_id"] %>"><%= cabinet["name"] %></option>
+            <option value="<%= cabinet["_id"] %>"<% if cabinet["_id"].to_s == cabinetid %> selected<% end %>><%= cabinet["name"] %></option>
           <% end %>
         </select>
       </td>
@@ -15,8 +16,8 @@
       <td>
         <select name="machine[slot]">
           <!-- TODO: make height dynamic -->
-          <% 1.upto(45) do |slot| %>
-            <option value=<%= slot %>><%= slot %></option>
+          <% 1.upto(45) do |s| %>
+            <option value=<%= s %><% if s == slot %> selected<% end %>><%= s %></option>
           <% end %>
         </select>
       </td>
@@ -60,7 +61,7 @@
       <td>
         <select name="machine[role]">
           <% roles.each do |roleid, role| %>
-            <option value="<%= roleid %>">role</option>
+            <option value="<%= roleid %>"><%= role %></option>
           <% end %>
         </select>
       </td>

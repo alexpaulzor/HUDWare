@@ -2,7 +2,7 @@
     <div class=cabinet style="float: left">
         <table>
             <thead>
-                <tr><th colspan=2><a href="/v/cabinet/edit/<%= cabinet["_id"] %>"><%= cabinet["name"] %></a></th></tr>
+                <tr><th colspan=2><a href="/v/cabinet/edit/<%= cabid %>"><%= cabinet["name"] %></a></th></tr>
             </thead>
             <tbody>
                 <% skip = 0 %>
@@ -12,17 +12,17 @@
                         <% if skip > 0 %> 
                             <% skip = skip - 1 %>
                         <% else %>
-                            <% if slots[cabinet["_id"]] and slots[cabinet["_id"]][slot] %>
-                                <% size = slots[cabinet["_id"]][slot]["size"] %>
+                            <% if slots[cabid] and slots[cabid][slot] %>
+                                <% size = slots[cabid][slot]["size"] %>
                                 <% if not size %>
                                     <% size = 1 %>
                                 <% end %>
                                 <% skip = size - 1 %>
                                 <td rowspan="<%= size %>">
-                                    <%= erb :"machine/physical", {}, {:machine => slots[cabinet["_id"]][slot]} %>
+                                    <%= erb :"machine/physical", {}, {:machine => slots[cabid][slot]} %>
                                 </td>
                             <% else %>
-                                <td><a href="/v/machine/create">+</a></td>
+                                <td><a href="/v/machine/create?cabinetid=<%= cabid %>&slot=<%= slot %>">+</a></td>
                             <% end %>
                         <% end %>
                     </tr>

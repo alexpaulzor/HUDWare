@@ -1,0 +1,86 @@
+<form action="/create/machine" method=post>
+  <table>
+    <tr>
+      <td>Cabinet</td>
+      <td>
+        <select name="machine[cabinet]">
+          <% cabinets.each do |cabid, cabinet| %>
+            <option value="<%= cabinet["_id"] %>"<% if cabinet["_id"].to_s == cabinetid %> selected<% end %>><%= cabinet["name"] %></option>
+          <% end %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Slot</td>
+      <td>
+        <select name="machine[slot]">
+          <!-- TODO: make height dynamic -->
+          <% 1.upto(45) do |s| %>
+            <option value=<%= s %><% if s == slot %> selected<% end %>><%= s %></option>
+          <% end %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>
+        <select name="machine[height]">
+          <% 1.upto(6) do |units| %>
+            <option value=<%= units %>><%= units %></option>
+          <% end %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><input name="machine[name]" /></td>
+    </tr>
+    <tr>
+      <td>Label</td>
+      <td><input name="machine[label]" /></td>
+    </tr>
+    <tr>
+      <td>Vendor</td>
+      <td><input name="machine[vendor]" /></td>
+    </tr>
+    <tr>
+      <td>Model</td>
+      <td><input name="machine[model]" /></td>
+    </tr>
+    <tr>
+      <td>Serial</td>
+      <td><input name="machine[serial]" /></td>
+    </tr>
+    <tr>
+      <td>Warranty ends</td>
+      <td><input name="machine[warranty_expiration]" /></td>
+    </tr>
+    <tr>
+      <td>Machine Type</td>
+      <td>
+        <select name="machine[role]">
+          <% roles.each do |roleid, role| %>
+            <option value="<%= roleid %>"><%= role %></option>
+          <% end %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Memory (MB)</td>
+      <td><input name="machine[memory]" /></td>
+    </tr>
+    <tr>
+      <td>CPU</td>
+      <td>
+        <select name="machine[num_cpus]">
+          <% 1.upto(16) do |numcpus| %>
+            <option value="<%= numcpus %>"><%= numcpus %></option>
+          <% end %>
+        </select>
+        x <input name="machine[cpu_model]" />
+        @ <input name="machine[cpu_speed]" /> MHz
+      </td>
+    </tr>
+  </table>
+  <input type=submit value="Save" />
+</form>
